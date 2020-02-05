@@ -1,6 +1,6 @@
 from flask import Flask, render_template, url_for, redirect
 import os
-import cPickle as pickle
+import pickle
 import requests
 
 
