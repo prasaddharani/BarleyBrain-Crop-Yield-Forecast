@@ -69,7 +69,7 @@ if __name__ == '__main__':
         model = pickle.load(f)
     y = model.predict(ave_xf.reshape(1, -1))
 
-    print 'Your forecast for this season in:'
-    print '%s portion of %s is:' % (region, state,)
-    print "Prediction is %s bushels/acre" % y
-    print '\n\n'
+    print('Your forecast for this season in:')
+    print('%s portion of %s is:' % (region, state,))
+    print("Prediction is %s bushels/acre" % y)
+    print('\n\n')
