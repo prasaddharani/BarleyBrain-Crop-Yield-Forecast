@@ -46,5 +46,5 @@ def darksky():
 def galvanize():
     return redirect('https://talent.galvanize.com')
 
-if __name__ == '__main__':
-    app.run()
+if __name__ == "__main__":
+    app.run(debug=True)
