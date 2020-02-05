@@ -1,7 +1,6 @@
 from flask import Flask, render_template, url_for, redirect
 import os
 import pickle
-import requests
 
 
 # ===== initialize flask app ====
