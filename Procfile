@@ -1,1 +1,1 @@
-web: gunicorn app:Barley_flask
+web: gunicorn app:app
