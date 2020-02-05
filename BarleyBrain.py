@@ -127,7 +127,7 @@ def join_weather_yield(wdf, ydf):
         else:
             agg_dict[i] = np.mean
 
-    print "Fixing resulting NAs and missing data"
+    print("Fixing resulting NAs and missing data")
     wdf_years = wdf.groupby(group_by_columns).agg(agg_dict)
 
     # fix nans in precip accumulation for days of no accumulation
@@ -206,13 +206,13 @@ def feature_importance(cols, feat_imps):
 
 if __name__ == '__main__':
 
-    print 'Loading raw weather data....'
+    print('Loading raw weather data....')
     df_weather = weather_dates(pd.read_csv(RAW_WEATHER_FILE), MIN_YEAR, TEST_SPLIT)
 
-    print 'Loading yield files.........'
+    print ('Loading yield files.........')
     df_yield = yield_dates(pd.read_csv(PROCESSED_YIELD), MIN_YEAR, TEST_SPLIT)
 
-    print 'combining the two files for analysis'
+    print('combining the two files for analysis')
     df_join = join_weather_yield(df_weather, df_yield)
     df_join.to_csv(COMBINED)
 
@@ -235,8 +235,8 @@ if __name__ == '__main__':
     # =============================================
 
 
-    print '\n\n'
-    print 'Running model on TRAIN? ', TRAIN
+    print('\n\n')
+    print('Running model on TRAIN? ', TRAIN)
     if TRAIN == False:
         # =========== Load pickle of training session ========
         with open('data/pickles/reg_ada_' + STATE + '_xtr.pkl') as f:
@@ -252,19 +252,19 @@ if __name__ == '__main__':
         grid = GridSearchCV(estimator=reg_ada, param_grid=params, n_jobs=-1, return_train_score=True)
         grid.fit(X, y)
         _best_params = grid.best_params_
-        print _best_params
+        print(_best_params)
 
     # predict and score
     y_ada = reg_ada.predict(X)
     ada_mse = mse(y, y_ada)
-    print '\n\n'
-    print 'TRAINING SET? ', TRAIN
-    print 'STATES: %s  Dates: %s --> %s' % (STATE, MIN_YEAR, TEST_SPLIT)
-    print '================================================'
-    print 'Adaboost   r2:   ', reg_ada.score(X, y)
-    print 'Adaboost  MSE:   ', ada_mse
-    print 'Adaboost RMSE:   ', np.sqrt(ada_mse)
-    print '================================================'
+    print('\n\n')
+    print('TRAINING SET? ', TRAIN)
+    print('STATES: %s  Dates: %s --> %s' % (STATE, MIN_YEAR, TEST_SPLIT))
+    print('================================================')
+    print('Adaboost   r2:   ', reg_ada.score(X, y))
+    print('Adaboost  MSE:   ', ada_mse)
+    print('Adaboost RMSE:   ', np.sqrt(ada_mse))
+    print('================================================')
 
     # Extract table of most important features for later use if needed
     feat_imp = feature_importance(X.columns.tolist(), reg_ada.feature_importances_)
